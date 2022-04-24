@@ -8,6 +8,7 @@ var async = require('async');
 var url = require('url');
 var qs = require('querystring');
 var crypto = require('crypto');
+var paseto = require('paseto.js');
 var db = require('../db');
 
 
@@ -77,7 +78,26 @@ as.exchange(oauth2orize.exchange.code(function issue(client, code, redirectURI, 
     if (row.client_id !== client.id) { return cb(null, false); }
     if (row.redirect_uri !== redirectURI) { return cb(null, false); }
     
-    console.log('TODO: issue token');
+    var payload = {
+      iss: 'https://server.example.com',
+      aud: 'https://api.example.com',
+      sub: String(row.user_id),
+      client_id: String(row.client_id),
+      scope: row.scope,
+    }
+    var raw = Buffer.from('deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef', 'hex');
+    var sk  = new paseto.SymmetricKey(new paseto.V2());
+    sk.inject(raw)
+      .then(function() {
+        var encoder = sk.protocol();
+        return encoder.encrypt(JSON.stringify(payload), sk);
+      })
+      .then(function(token) {
+        return cb(null, token);
+      })
+      .catch(function(err) {
+        return cb(err);
+      });
   });
 }));
 
