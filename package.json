@@ -2,7 +2,7 @@
   "name": "todosas-bearer-paseto",
   "version": "0.0.0",
   "private": true,
-  "description": "OAuth 2.0 server using Express and OAuth2orize to issue PASETO bearer tokens.",
+  "description": "OAuth 2.0 server using Express and OAuth2orize to issue encrypted PASETO bearer tokens.",
   "keywords": [
     "example",
     "express",
@@ -45,6 +45,7 @@
     "mkdirp": "^1.0.4",
     "morgan": "~1.9.1",
     "oauth2orize": "^1.11.0",
+    "paseto.js": "^0.1.7",
     "passport": "^0.5.2",
     "passport-http": "^0.3.0",
     "passport-http-bearer": "^1.0.1",
