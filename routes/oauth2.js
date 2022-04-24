@@ -89,7 +89,7 @@ as.exchange(oauth2orize.exchange.code(function issue(client, code, redirectURI, 
       iat: new Date(now).toISOString(),
       exp: new Date(now + 7200000).toISOString(),
       jti: uuid()
-    }
+    };
     var raw = Buffer.from('deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef', 'hex');
     var sk  = new paseto.SymmetricKey(new paseto.V2());
     sk.inject(raw)
