@@ -26,7 +26,7 @@ This example illustrates how to build an OAuth 2.0 authorization server that
 supports clients using the web-based authorization code and implicit grants.
 The access tokens issued to clients are bearer tokens, the contents of which are
 encoded in [Platform-Agnostic Security Tokens](https://paseto.io/) (PASETO)
-format.
+format and encrypted using version 2.
 
 This app implements sign in and consent functionality.  User interaction is
 performed via HTML pages and forms, which are rendered via [EJS](https://ejs.co/)
