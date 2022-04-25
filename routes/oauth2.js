@@ -73,8 +73,8 @@ as.exchange(oauth2orize.exchange.code(function issue(client, code, redirectURI, 
       sub: String(row.user_id),
       client_id: String(row.client_id),
       scope: row.scope,
-      iat: new Date(now).toISOString(),
-      exp: new Date(now + 3600000).toISOString(), // 1 hour from now
+      iat: dateFormat(new Date(now), 'isoUtcDateTime'),
+      exp: dateFormat(new Date(now + 3600000), 'isoUtcDateTime'), // 1 hour from now
       jti: uuid()
     };
     var raw = Buffer.from('deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef', 'hex');
@@ -213,7 +213,7 @@ router.get('/authorize',
         name: row.name,
         redirectURI: row.redirect_uri
       };
-      if (client.redirectURI != redirectURI) { return cb(null, false); }
+      if (client.redirectURI !== redirectURI) { return cb(null, false); }
       return cb(null, client, client.redirectURI);
     });
   }, evaluate),
